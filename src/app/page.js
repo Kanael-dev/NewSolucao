@@ -1,6 +1,5 @@
-"use client";
+'use client'
 import { useState } from "react";
-
 import Image from "next/image";
 import styles from "./page.module.css";
 import Link from "next/link";
@@ -10,10 +9,14 @@ import PopupJSON from "../components/PopupJSON";
 export default function Home() {
   const [count, setCount] = useState(0);
 
+  const handlerParams = (valor) => {
+    setCount(valor);
+  };
+
   return (
     <main className={styles.main}>
-      {count === 1 ? <Popup /> : ""}
-      {count === 2 ? <PopupJSON /> : ""}
+      {count === 1 ? <Popup handlerParams={handlerParams}/> : ""}
+      {count === 2 ? <PopupJSON handlerParams={handlerParams}/> : ""}
       <div className={styles.containerPrincipal}>
         <h1>Transforme e simplifique</h1>
         <Image
@@ -26,10 +29,20 @@ export default function Home() {
         />
       </div>
       <div className={styles.containerBotoes}>
-        <button className={styles.btnInformacoes} onClick={() => setCount(1)}>
+        <button
+          className={styles.btnInformacoes}
+          onClick={() => {
+            handlerParams(1);
+          }}
+        >
           Conveter excel para CSV
         </button>
-        <button className={styles.btnInformacoes} onClick={() => setCount(2)}>
+        <button
+          className={styles.btnInformacoes}
+          onClick={() => {
+            handlerParams(2);
+          }}
+        >
           Conveter excel para JSON
         </button>
       </div>

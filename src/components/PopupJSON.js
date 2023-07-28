@@ -3,7 +3,9 @@ import { useDropzone } from "react-dropzone";
 import styles from "../app/popup.module.css";
 import readXlsxFile from "read-excel-file";
 
-const PopupJSON = () => {
+const PopupJSON = ({ handlerParams }) => {
+  const [count, setCount] = useState(0);
+
   const acceptedFileTypes = ".xls,.xlsx";
   const [loading, setLoading] = useState(false);
   const [jsonData, setJsonData] = useState(null);
@@ -46,9 +48,14 @@ const PopupJSON = () => {
     <>
       {isOpen && (
         <div className={styles.popupContainer}>
+          <div className={styles.fecharItem} onClick={() => handlerParams(0)}>
+            x
+          </div>
           <div
             {...getRootProps()}
-            className={`${styles.dropzone} ${isDragActive ? styles.active : ""}`}
+            className={`${styles.dropzone} ${
+              isDragActive ? styles.active : ""
+            }`}
           >
             <input {...getInputProps()} />
             {loading ? (
@@ -56,7 +63,9 @@ const PopupJSON = () => {
             ) : isDragActive ? (
               <p>Solte o arquivo aqui...</p>
             ) : (
-              <p>Arraste e solte um arquivo Excel aqui ou clique para selecionar</p>
+              <p>
+                Arraste e solte um arquivo Excel aqui ou clique para selecionar
+              </p>
             )}
           </div>
           {jsonData && (
@@ -64,7 +73,9 @@ const PopupJSON = () => {
               <h3>Dados convertidos para JSON:</h3>
               <pre>{JSON.stringify(jsonData, null, 2)}</pre>
               <div>
-                <button onClick={handleCopyToClipboard}>Copiar para Clipboard</button>
+                <button onClick={handleCopyToClipboard}>
+                  Copiar para Clipboard
+                </button>
                 <button onClick={handleDownload}>Fechar</button>
               </div>
             </div>

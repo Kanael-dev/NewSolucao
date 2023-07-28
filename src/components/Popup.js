@@ -4,7 +4,7 @@ import styles from "../app/popup.module.css";
 import Papa from "papaparse";
 import readXlsxFile from "read-excel-file";
 
-const Popup = () => {
+const Popup = ({ handlerParams }) => {
   const acceptedFileTypes = ".xls,.xlsx";
   const [loading, setLoading] = useState(false);
   const [csvData, setCsvData] = useState(null);
@@ -13,7 +13,7 @@ const Popup = () => {
   const onDrop = async (acceptedFiles) => {
     setLoading(true);
     const file = acceptedFiles[0];
-    
+
     try {
       const jsonData = await readXlsxFile(file);
       const csvData = Papa.unparse(jsonData);
@@ -39,9 +39,15 @@ const Popup = () => {
     <>
       {isOpen && (
         <div className={styles.popupContainer}>
+          <div className={styles.fecharItem} onClick={() => handlerParams(0)}>
+            x
+          </div>
+
           <div
             {...getRootProps()}
-            className={`${styles.dropzone} ${isDragActive ? styles.active : ""}`}
+            className={`${styles.dropzone} ${
+              isDragActive ? styles.active : ""
+            }`}
           >
             <input {...getInputProps()} />
             {loading ? (
@@ -49,19 +55,25 @@ const Popup = () => {
             ) : isDragActive ? (
               <p>Solte o arquivo aqui...</p>
             ) : (
-              <p>Arraste e solte um arquivo Excel aqui ou clique para selecionar</p>
+              <p>
+                Arraste e solte um arquivo Excel aqui ou clique para selecionar
+              </p>
             )}
           </div>
-          {csvData && (
-            <a
-              className={styles.downloadButton}
-              href={`data:text/csv;charset=utf-8,${encodeURIComponent(csvData)}`}
-              download="BASE_UCS.csv"
-              onClick={handleDownload}
-            >
-              Baixar CSV
-            </a>
-          )}
+          <div className={styles.containerDownload}>
+            {csvData && (
+              <a
+                className={styles.downloadButton}
+                href={`data:text/csv;charset=utf-8,${encodeURIComponent(
+                  csvData
+                )}`}
+                download="BASE_UCS.csv"
+                onClick={handleDownload}
+              >
+                Baixar CSV
+              </a>
+            )}
+          </div>
         </div>
       )}
     </>
