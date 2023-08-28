@@ -43,6 +43,10 @@
     display: grid;
     place-items: center;
   }
+  .apresentacao{
+    width: 70vw;
+    height: 10vh;
+  }
   .downloadButton{
     background: #fff;
     padding: 20px;
@@ -51,6 +55,13 @@
     place-items: center;
     border-radius: 10px;
     font-weight: 700;
+  }
+  .downloadButtonDiv{
+    width: 600px;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    margin: 20px;
   }
   .fecharItem{
     margin: 20px;

@@ -71,12 +71,19 @@ const PopupJSON = ({ handlerParams }) => {
           {jsonData && (
             <div>
               <h3>Dados convertidos para JSON:</h3>
-              <pre>{JSON.stringify(jsonData, null, 2)}</pre>
-              <div>
-                <button onClick={handleCopyToClipboard}>
+              <textarea
+              className={styles.apresentacao}
+                value={JSON.stringify(jsonData, null, 2)}
+                readOnly
+                rows={10} // Defina o número de linhas desejado
+                cols={40} // Defina o número de colunas desejado
+              />
+
+              <div className={styles.downloadButtonDiv}>
+                <button className={styles.downloadButton} onClick={handleCopyToClipboard}>
                   Copiar para Clipboard
                 </button>
-                <button onClick={handleDownload}>Fechar</button>
+                <button className={styles.downloadButton} onClick={handleDownload}>Fechar</button>
               </div>
             </div>
           )}
